@@ -1,6 +1,9 @@
-﻿#include "Gra.h"
+// PROJEKT ARKANOID W RAMACH LABORATORIUM Z INFORMATYKI 2025/2026
+// ALEKSANDER KRZEMIŃSKI, S199283, ARISS [2025/2026]
+#include "Gra.h"
 
 int main() {
 	Gra gra;
 	gra.run();
+
 }
