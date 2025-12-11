@@ -66,39 +66,25 @@ public:
         nickInput.clear();
 
         if (victory)
-        {
             titleText.setString("WYGRANA!");
-            instruction.setString("ENTER - zatwierdz wynik");
-        }
         else
-        {
             titleText.setString("GAME OVER");
-            instruction.setString("ENTER / SPACJA - powrot do menu");
-        }
-        
+
+        instruction.setString("ENTER - zatwierdz wynik");
+
         centerX(titleText, 720);
 
         scoreText.setString("TWÓJ WYNIK: " + std::to_string(score));
+        centerX(scoreText, 720);
     }
 
-    // zwraca true → powrót do menu
+
     bool handleEvent(Event& event)
     {
-        // GAME OVER → szybki powrót
-        if (!victory)
-        {
-            if (event.type == Event::KeyPressed &&
-                (event.key.code == Keyboard::Enter || event.key.code == Keyboard::Space))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        // WYGRANA → wpisywanie nicku
+        // wpisywanie nicku
         if (event.type == Event::TextEntered)
         {
-            if (event.text.unicode == 8)
+            if (event.text.unicode == 8) // backspace
             {
                 if (!nickInput.empty())
                     nickInput.pop_back();
@@ -109,6 +95,7 @@ public:
             }
         }
 
+        // zatwierdzenie wyniku
         if (event.type == Event::KeyPressed && event.key.code == Keyboard::Enter)
         {
             if (!nickInput.empty())
@@ -121,6 +108,7 @@ public:
         return false;
     }
 
+
     void draw(RenderWindow& window)
     {
         nickText.setString(nickInput);
@@ -128,11 +116,8 @@ public:
         window.draw(titleText);
         window.draw(scoreText);
 
-        if (victory)
-        {
-            window.draw(inputLabel);
-            window.draw(nickText);
-        }
+        window.draw(inputLabel);
+        window.draw(nickText);
 
         window.draw(instruction);
     }
